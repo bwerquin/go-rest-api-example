@@ -17,15 +17,11 @@ Step 2 : run it
 
 ### Build Light Docker image (from scratch)
 
-Step 1 : build go app
+Step 1 : build go app et Docker image (multistage)
 
-`CGO_ENABLED=0 GOOS=linux go build -o main .`
+`docker build -t example-scratch -f scratch.Dockerfile .`
 
-Step 2 : build Docker image
-
-`docker build -t example-scratch -f DockerfileWithoutGoland .`
-
-Step 3 : run it
+Step 2 : run it
 
 `docker run -it -p 8080:8080 example-scratch`
 
