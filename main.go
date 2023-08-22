@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"go-rest-api-example/helpers"
 	"log"
 	"net/http"
 	"os"
@@ -10,6 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Specific structure for response
 type Response struct {
 	Persons []Person `json:"persons"`
 }
@@ -21,6 +23,8 @@ type Person struct {
 }
 
 func main() {
+	log.Println("Reading conf from external file")
+	helpers.ReadConfig()
 	initLog()
 	log.Println("This is a test log entry")
 
@@ -40,7 +44,7 @@ func main() {
 
 func initLog() {
 	//add external file for logging
-	f, err := os.OpenFile("log/testlogfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	f, err := os.OpenFile(helpers.AppConfig.LOG, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("error opening file: %v", err)
 	}
