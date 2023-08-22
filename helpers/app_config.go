@@ -8,7 +8,7 @@ import (
 )
 
 // URL config file
-const configPath = "/usr/share/config.yml"
+const configPath = "/home/appuser/config.yml"
 
 // Specific structure for config file
 type Cfg struct {

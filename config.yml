@@ -1,2 +1,2 @@
-logFile: testlogfile.log
+logFile: /home/appuser/testlogfile.log
 portToExpose: 8080

@@ -17,15 +17,13 @@ ENV UID=10001
 RUN adduser \
     --disabled-password \
     --gecos "" \
-    --home "/nonexistent" \
     --shell "/sbin/nologin" \
-    --no-create-home \
     --uid "${UID}" \
     "${USER}"
 WORKDIR $GOPATH/src/mypackage/myapp/
 COPY . .
 
-COPY ./config.yml /usr/share/config.yml
+COPY ./config.yml /home/appuser/config.yml
 
 # Fetch dependencies.
 RUN go get -d -v
@@ -50,11 +48,10 @@ COPY --from=builder /etc/group /etc/group
 COPY --from=builder /go/bin/hello /go/bin/hello
 
 # Copy static config file
+COPY --from=builder /home/appuser/config.yml /home/appuser/config.yml
 
-COPY --from=builder /usr/share/config.yml /usr/share/config.yml
-
-# Use an unprivileged user.
-# USER appuser:appuser
+# TODO Use an unprivileged user.
+#USER appuser:appuser 
 
 # Run the hello binary.
 ENTRYPOINT ["/go/bin/hello"]
