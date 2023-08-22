@@ -1,7 +1,7 @@
 # go-rest-api-example
 Go rest API example with Gorillaz/Mux
 
-You have to specify your config file in "/usr/share/config.yml"
+You have to specify your config file in "/home/appuser/config.yml" (cf. helpers/app_config.go)
 
 ## Get started
 
