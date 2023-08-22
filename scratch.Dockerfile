@@ -25,6 +25,8 @@ RUN adduser \
 WORKDIR $GOPATH/src/mypackage/myapp/
 COPY . .
 
+COPY ./config.yml /usr/share/config.yml
+
 # Fetch dependencies.
 RUN go get -d -v
 
@@ -47,8 +49,12 @@ COPY --from=builder /etc/group /etc/group
 # Copy our static executable
 COPY --from=builder /go/bin/hello /go/bin/hello
 
+# Copy static config file
+
+COPY --from=builder /usr/share/config.yml /usr/share/config.yml
+
 # Use an unprivileged user.
-USER appuser:appuser
+# USER appuser:appuser
 
 # Run the hello binary.
 ENTRYPOINT ["/go/bin/hello"]

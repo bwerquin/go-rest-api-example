@@ -1,6 +1,8 @@
 # go-rest-api-example
 Go rest API example with Gorillaz/Mux
 
+You have to specify your config file in "/usr/share/config.yml"
+
 ## Get started
 
 `go run main.go .`

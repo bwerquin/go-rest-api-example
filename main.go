@@ -23,7 +23,6 @@ type Person struct {
 }
 
 func main() {
-	log.Println("Reading conf from external file")
 	helpers.ReadConfig()
 	initLog()
 	log.Println("This is a test log entry")
@@ -38,7 +37,7 @@ func main() {
 	http.Handle("/", router)
 
 	//start and listen to requests
-	http.ListenAndServe(":8080", router)
+	http.ListenAndServe(":"+helpers.AppConfig.PORT, router)
 
 }
 

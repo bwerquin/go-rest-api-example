@@ -1,1 +1,2 @@
-logFile: log/testlogfile.log
+logFile: testlogfile.log
+portToExpose: 8080

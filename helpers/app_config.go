@@ -7,12 +7,13 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Add URL config file
-const configPath = "config.yml"
+// URL config file
+const configPath = "/usr/share/config.yml"
 
 // Specific structure for config file
 type Cfg struct {
-	LOG string `yaml:"logFile"`
+	LOG  string `yaml:"logFile"`
+	PORT string `yaml:"portToExpose"`
 }
 
 var AppConfig Cfg
