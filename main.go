@@ -21,15 +21,9 @@ type Person struct {
 }
 
 func main() {
-	//add external file for logging
-	f, err := os.OpenFile("log/testlogfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatalf("error opening file: %v", err)
-	}
-	defer f.Close()
-
-	log.SetOutput(f)
+	initLog()
 	log.Println("This is a test log entry")
+
 	log.Println("starting API server")
 	//create a new router
 	router := mux.NewRouter()
@@ -42,6 +36,15 @@ func main() {
 	//start and listen to requests
 	http.ListenAndServe(":8080", router)
 
+}
+
+func initLog() {
+	//add external file for logging
+	f, err := os.OpenFile("log/testlogfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	log.SetOutput(f)
 }
 
 func HealthCheck(w http.ResponseWriter, r *http.Request) {
