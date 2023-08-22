@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -20,6 +21,15 @@ type Person struct {
 }
 
 func main() {
+	//add external file for logging
+	f, err := os.OpenFile("log/testlogfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	defer f.Close()
+
+	log.SetOutput(f)
+	log.Println("This is a test log entry")
 	log.Println("starting API server")
 	//create a new router
 	router := mux.NewRouter()
