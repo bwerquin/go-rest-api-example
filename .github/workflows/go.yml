@@ -8,17 +8,17 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            go-version: 1.15.x
-            artifact_name: onydev
-            asset_name: onydev-linux
+            go-version: 1.21.x
+            artifact_name: go-rest-api
+            asset_name: go-rest-api-linux
           - os: macos-latest
-            go-version: 1.15.x
-            artifact_name: onydev
-            asset_name: onydev-macos
+            go-version: 1.21.x
+            artifact_name: go-rest-api
+            asset_name: onygo-rest-apidev-macos
           - os: windows-latest
-            go-version: 1.15.x
-            artifact_name: onydev.exe
-            asset_name: onydev-windows.exe
+            go-version: 1.21.x
+            artifact_name: go-rest-api.exe
+            asset_name: go-rest-api-windows.exe
     runs-on: ${{ matrix.os }}
     steps:
       - name: Install Go
