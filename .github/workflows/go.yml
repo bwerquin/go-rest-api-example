@@ -9,8 +9,8 @@ jobs:
         include:
           - os: ubuntu-latest
             go-version: 1.21.x
-            artifact_name: go-rest-api
-            asset_name: go-rest-api
+            artifact_name: go-rest-api-example
+            asset_name: go-rest-api-example
     runs-on: ${{ matrix.os }}
     steps:
       - name: Install Go
