@@ -5,9 +5,11 @@ import (
 	"os"
 
 	"gopkg.in/yaml.v2"
+
 )
 
 // URL config file
+// const configPath = "C:\\Users\\I6VWID\\Documents\\go-rest-api-example\\config.yml"
 const configPath = "/home/appuser/config.yml"
 
 // Specific structure for config file
