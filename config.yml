@@ -1,3 +1,5 @@
 #logFile: C:\\Users\\I6VWID\\Documents\\log\\testlogfile.log
 logFile: /home/appuser/testlogfile.log
 portToExpose: 8080
+Realm: users
+Host: https://auth.domaine.com/auth

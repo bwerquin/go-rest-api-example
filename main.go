@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"go-rest-api-example/helpers"
 	"log"
@@ -11,34 +10,35 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Specific structure for response
-type Response struct {
-	Persons []Person `json:"persons"`
-}
-
-type Person struct {
-	Id        int    `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-}
-
 func main() {
+	
+	log.Println("Starting API server")
+	
+	//Read config file
 	helpers.ReadConfig()
-	initLog()
-	log.Println("This is a test log entry")
 
-	log.Println("starting API server")
-	//create a new router
+	//Init log system
+	initLog()
+	log.Println("Log configured")
+
+	//Get Public Key from Oauth server
+	helpers.InitializeOauthPublicKey()
+	log.Println("Public Key configured")
+	
+	//Create a new router
 	router := mux.NewRouter()
-	log.Println("creating routes")
+	log.Println("Creating routes")
+	
 	//specify endpoints
 	router.HandleFunc("/health-check", HealthCheck).Methods("GET")
-	router.HandleFunc("/persons", Persons).Methods("GET")
+	
+	//specific secure endpoints
+	router.Handle("/secure", helpers.Protect(http.HandlerFunc(SecureZone))).Methods("GET")
 	http.Handle("/", router)
 
 	//start and listen to requests
 	http.ListenAndServe(":"+helpers.AppConfig.PORT, router)
-
+	log.Println("API ready to listen and serve")
 }
 
 func initLog() {
@@ -56,40 +56,8 @@ func HealthCheck(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "API is up and running")
 }
 
-func Persons(w http.ResponseWriter, r *http.Request) {
-	log.Println("entering persons end point")
-	var response Response
-	persons := prepareResponse()
-
-	response.Persons = persons
-
-	w.Header().Set("Content-Type", "application/json")
+func SecureZone(w http.ResponseWriter, r *http.Request) {
+	log.Println("entering secure zone end point")
 	w.WriteHeader(http.StatusOK)
-	jsonResponse, err := json.Marshal(response)
-	if err != nil {
-		return
-	}
-
-	w.Write(jsonResponse)
-}
-
-func prepareResponse() []Person {
-	var persons []Person
-
-	var person Person
-	person.Id = 1
-	person.FirstName = "Issac"
-	person.LastName = "N"
-	persons = append(persons, person)
-
-	person.Id = 2
-	person.FirstName = "Albert"
-	person.LastName = "E"
-	persons = append(persons, person)
-
-	person.Id = 3
-	person.FirstName = "Thomas"
-	person.LastName = "E"
-	persons = append(persons, person)
-	return persons
+	fmt.Fprintf(w, "API secure zone")
 }

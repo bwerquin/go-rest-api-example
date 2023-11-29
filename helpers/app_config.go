@@ -9,13 +9,15 @@ import (
 )
 
 // URL config file
-// const configPath = "C:\\Users\\I6VWID\\Documents\\go-rest-api-example\\config.yml"
+//const configPath = "C:\\Users\\I6VWID\\Documents\\go-rest-api-example\\config.yml"
 const configPath = "/home/appuser/config.yml"
 
 // Specific structure for config file
 type Cfg struct {
 	LOG  string `yaml:"logFile"`
 	PORT string `yaml:"portToExpose"`
+	REALM string `yaml:"Realm"`
+	HOST string `yaml:"Host"`
 }
 
 var AppConfig Cfg
